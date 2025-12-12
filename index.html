@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tech Link — @nikhil.narayan01</title>
+  <meta name="description" content="Tech links, projects and contact — a clean link-in-bio page for creators and developers." />
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --muted:#9aa4b2;
+      --accent-1:#7c3aed;
+      --accent-2:#06b6d4;
+      --glass: rgba(255,255,255,0.03);
+      --radius:16px;
+      color-scheme: dark;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,system-ui}
+    body{background:linear-gradient(180deg,var(--bg),#07101a);background-size:400% 400%;animation:bgShift 12s ease infinite;display:flex;align-items:center;justify-content:center;padding:28px}
+
+    @keyframes bgShift{0%{background-position:0% 50%;}50%{background-position:100% 50%;}100%{background-position:0% 50%;}}
+
+    .card{width:100%;max-width:520px;background:linear-gradient(180deg,rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:20px;padding:18px;border:1px solid rgba(255,255,255,0.04);backdrop-filter: blur(6px);box-shadow:0 8px 30px rgba(2,6,23,0.6);opacity:0;animation:fadeIn 0.9s ease forwards;transform:translateY(20px);}
+    @keyframes fadeIn{to{opacity:1;transform:translateY(0);} }
+
+    .header{display:flex;gap:14px;align-items:center}
+
+    /* DP styling replacing avatar */
+    .avatar{width:86px;height:86px;border-radius:50%;overflow:hidden;flex:0 0 86px;padding:4px;
+      background:conic-gradient(from 0deg, var(--accent-1), var(--accent-2), var(--accent-1));
+      animation:avatarGlow 4s linear infinite, floatAvatar 4s ease-in-out infinite;
+      box-shadow:0 0 25px rgba(6,182,212,0.45),0 0 45px rgba(124,58,237,0.35);
+      transition:transform .4s ease;
+    }
+    .avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;animation:popIn .8s ease forwards;opacity:0;}
+
+    @keyframes floatAvatar{
+      0%{transform:translateY(0);} 
+      50%{transform:translateY(-10px);} 
+      100%{transform:translateY(0);} 
+    }50%{transform:translateY(-8px);}100%{transform:translateY(0);}}
+    @keyframes popIn{0%{opacity:0;transform:scale(.8);}100%{opacity:1;transform:scale(1);} }
+
+    .who{flex:1}
+    .handle{font-weight:700;font-size:18px;margin:0;color:#fff}
+    .role{margin:4px 0 0;color:var(--muted);font-size:13px}
+
+    .bio-row{margin-top:12px;background:var(--glass);padding:10px;border-radius:12px;font-size:14px;color:var(--muted);display:flex;gap:8px;align-items:center}
+    .bio-row button{margin-left:auto;background:none;border:0;color:var(--accent-2);font-weight:600;cursor:pointer;padding:6px}
+
+    .links{margin-top:16px;display:grid;gap:12px}
+    .link{display:flex;align-items:center;gap:12px;padding:14px;border-radius:12px;background:linear-gradient(90deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));border:1px solid rgba(255,255,255,0.03);text-decoration:none;color:inherit;opacity:0;transform:translateX(-20px);animation:slideIn .7s forwards;}
+    .links .link:nth-child(1){animation-delay:.1s;} 
+    .links .link:nth-child(2){animation-delay:.2s;} 
+    .links .link:nth-child(3){animation-delay:.3s;} 
+    .links .link:nth-child(4){animation-delay:.4s;} 
+    @keyframes slideIn{to{opacity:1;transform:translateX(0);}}
+
+    .link:hover{transform:translateY(-6px) scale(1.02);box-shadow:0 10px 30px rgba(3,8,23,0.6)}
+    .icon{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;flex:0 0 44px;background:linear-gradient(135deg,var(--accent-1),var(--accent-2));color:white;font-weight:700}
+
+    .footer{display:flex;justify-content:space-between;align-items:center;margin-top:16px;color:var(--muted);font-size:13px}
+    /* Modal Styles – Aviation Theme */
+
+  /* Coding / Robot Theme */
+  .coding-modal{
+    background:#101826;
+    border:1px solid rgba(0,255,255,0.15);
+    position:relative;
+    overflow:hidden;
+  }
+  .coding-modal .robot{
+    font-size:42px;
+    margin-bottom:10px;
+    animation:robotFloat 3s ease-in-out infinite;
+  }
+  @keyframes robotFloat{
+    0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);} }
+  .coding-modal .code{
+    background:#0b111b;
+    padding:10px;
+    border-radius:10px;
+    color:#00eaff;
+    font-family:monospace;
+    font-size:13px;
+    text-align:left;
+    animation:codeGlow 2s ease-in-out infinite alternate;
+  }
+  @keyframes codeGlow{
+    from{box-shadow:0 0 6px rgba(0,255,255,0.3);}to{box-shadow:0 0 12px rgba(0,255,255,0.6);} }
+
+  .modal{
+    position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.6);backdrop-filter:blur(4px);
+    display:flex;align-items:center;justify-content:center;
+    opacity:0;pointer-events:none;
+    animation-duration:.6s;
+  }
+  .modal.show{opacity:1;pointer-events:auto;animation:fadeIn .6s ease forwards;}
+
+  @keyframes fadeIn{from{opacity:0;transform:scale(0.95);}to{opacity:1;transform:scale(1);}}
+
+  .modal-content{
+    background:#0e1625;border:1px solid rgba(255,255,255,0.06);
+    padding:24px;border-radius:16px;max-width:300px;width:90%;text-align:center;
+    transform:scale(0.7);opacity:0;
+    animation:popUp .5s ease forwards;
+  }
+
+  @keyframes popUp{
+    0%{transform:scale(0.5);opacity:0;}
+    100%{transform:scale(1);opacity:1;}
+  }
+
+  .close-btn{
+    margin-top:12px;padding:10px 16px;border:none;border-radius:10px;
+    background:linear-gradient(135deg,var(--accent-1),var(--accent-2));
+    color:white;font-weight:600;cursor:pointer;
+    transition:transform .2s;
+  }
+  .close-btn:hover{transform:scale(1.05);}
+
+  /* Aviation Runway Animation */
+  .runway{
+    width:100%;height:6px;margin:14px 0 6px 0;
+    background:repeating-linear-gradient(90deg,#ffffff 0 20px, transparent 20px 40px);
+    animation:runwayMove 1.2s linear infinite;
+    opacity:0.7;border-radius:3px;
+  }
+  @keyframes runwayMove{
+    from{background-position:0;}to{background-position:40px;}
+  }
+  /* Cool Avatar Glow Animation */
+  @keyframes avatarGlow{
+    0%{filter:hue-rotate(0deg);}100%{filter:hue-rotate(360deg);}  }
+
+  .avatar:hover{transform:rotateX(12deg) rotateY(12deg) scale(1.06);}  
+</style>
+</head>
+<body>
+  <main class="card" id="card">
+    <header class="header">
+      <div class="avatar"><img id="avatarImg" src="https://drive.google.com/uc?export=download&id=1POorvIUy3U4DAvyW1JCLQ842F8dr3-uc" alt="avatar"></div>
+      <div class="who">
+        <h1 class="handle">@nikhil.narayan01</h1>
+        <div class="role">Dev • Maker • Open‑source • AI enthusiast</div>
+      </div>
+    </header>
+
+    <div class="bio-row" aria-live="polite">
+      <div id="bioText">Co‑founder of MEU‑ZU & Ludoshudo. Building my aviation charter business online and offline.</div>
+      <button id="copyBtn">Copy bio</button>
+    </div>
+
+    <section class="links" aria-label="links">
+      <a class="link" href="#" target="_blank"><div class="icon">GH</div><div class="meta"><div class="title">GitHub</div></div></a>
+      <a class="link" href="https://www.linkedin.com/in/nikhil-narayan-459bb2391" target="_blank"><div class="icon">in</div><div class="meta"><div class="title">LinkedIn</div></div></a>
+      <a class="link" href="mailto:nikhilatltr@gmail.com" target="_blank"><div class="icon">✉️</div><div class="meta"><div class="title">Email</div></div></a>
+      <a class="link" href="#"><div class="icon">⚙️</div><div class="meta"><div class="title">Latest Project</div></div></a>
+    </section>
+
+    <div class="footer">
+      <div class="small-cta">📍 India • Available for remote</div>
+      <button class="btn-mini" id="shareBtn">Share</button>
+    </div>
+  
+
+    <!-- Modal Popup -->
+    <div id="projectModal" class="modal">
+      <div class="modal-content">
+        <h2>✈️ Coming in for Landing</h2>
+        <p>Your aviation charter project is preparing for takeoff. Stay tuned, Captain!</p>
+        <div class="runway"></div>
+        <button id="closeModal" class="close-btn">Roger ✈️</button>
+      </div>
+    </div>
+
+  
+
+    <!-- GitHub Private Repo Modal -->
+    <div id="githubModal" class="modal">
+      <div class="modal-content coding-modal">
+        <div class="robot">🤖</div>
+        <h2>Private Repository</h2>
+        <p>This GitHub repo is currently private.<br>Access restricted.</p>
+        <pre class="code">$ git clone access-denied
+# awaiting authorization...</pre>
+        <button id="closeGithub" class="close-btn">Understood 🤖</button>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    document.getElementById('copyBtn').addEventListener('click', async function(){
+      const txt = document.getElementById('bioText').innerText;
+      await navigator.clipboard.writeText(txt).catch(()=>{});
+      this.innerText = 'Copied ✓';
+      setTimeout(()=> this.innerText = 'Copy bio', 2000);
+    });
+
+    document.getElementById('shareBtn').addEventListener('click', function(){
+      const shareData = {title: document.title, text: 'Check my tech links', url: location.href};
+      if(navigator.share){navigator.share(shareData);}else{navigator.clipboard.writeText(location.href);}    });
+      document.querySelector('.links .link:nth-child(4)').addEventListener('click', function(e){
+      e.preventDefault();
+      document.getElementById('projectModal').classList.add('show');
+    });
+      document.getElementById('closeModal').addEventListener('click', function(){
+      document.getElementById('projectModal').classList.remove('show');
+    });
+      // GitHub private repo popup
+    document.querySelector('.links .link:nth-child(1)').addEventListener('click', function(e){
+      e.preventDefault();
+      document.getElementById('githubModal').classList.add('show');
+    });
+    document.getElementById('closeGithub').addEventListener('click', function(){
+      document.getElementById('githubModal').classList.remove('show');
+    });
+  </script>
+</body>
+</html>
